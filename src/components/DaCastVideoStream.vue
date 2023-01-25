@@ -13,6 +13,8 @@
 <script lang="ts">
 import { AREA_ASPECT_RATIO_2D } from "@/constants";
 import { getIframeTemplate, getVideoIdFromUrl } from "@/dacast-utils";
+import { defineProps, PropType } from "@vue/runtime-core";
+
 export default {
   props: {
     videoUrl: {
@@ -21,11 +23,9 @@ export default {
     },
     loop: {
       type: Boolean,
-      default: false,
     },
     sound: {
       type: Boolean,
-      default: false,
     },
   },
   data() {

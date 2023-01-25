@@ -42,15 +42,19 @@ import { ref } from "@vue/reactivity";
 const isDaCast = ref(false);
 const loop = ref(true);
 const sound = ref(true);
-const videoUrl = ref<string | undefined>();
+const videoUrl = ref("");
 const state = ref("unknown");
 
 function changeState(currentState: string) {
   state.value = currentState;
 }
 
-function setVideoUrl(url: string | undefined) {
-  videoUrl.value = url;
-  isDaCast.value = url !== undefined && url.indexOf("dacast") > 0;
+function setVideoUrl(url?: string) {
+  if (url !== undefined && url.indexOf("dacast") > 0) {
+    videoUrl.value = url;
+    isDaCast.value = true;
+  } else {
+    isDaCast.value = false;
+  }
 }
 </script>
