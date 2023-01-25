@@ -2,6 +2,8 @@
 
 Demonstrate dacast usage with Vue and Veutify (with a sprinkling of Firebase)
 
+Site deployed to: [https://dacast-vue-vuetify-demo.web.app/](https://dacast-vue-vuetify-demo.web.app/)
+
 ## Project setup
 
 ```
