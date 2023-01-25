@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dacast player</title>
+  </head>
+
+  <body>
+    <div id="videoPlayer"></div>
+    <script src="https://player.dacast.com/js/player.js?contentId={CONTENT_ID}"></script>
+    <script>
+      const contentId = "{CONTENT_ID}";
+      const isMuted = convertToBoolean("{IS_MUTED}");
+      const isLoop = convertToBoolean("{IS_LOOP}");
+
+      resetDaCastCookies();
+      const myPlayer = dacast(contentId, "videoPlayer", {
+        width: "100%",
+        height: "100%",
+      });
+
+      myPlayer.onReady(() => {
+        myPlayer.getPlayerInstance().controls = false;
+        myPlayer.volume(isMuted ? 0 : 1);
+        myPlayer.play();
+        window.parent.postMessage("dacast-ready");
+      });
+
+      myPlayer.onComplete(() => {
+        if (isLoop) {
+          myPlayer.play();
+        } else {
+          window.parent.postMessage("dacast-complete");
+        }
+      });
+
+      function convertToBoolean(val) {
+        return val === "true";
+      }
+
+      // Automatic mute and unmute functionality does not work without it
+      function resetDaCastCookies() {
+        document.cookie = `dc-player-volume=; Max-Age=-99999999; path=${window.location.pathname};`;
+        document.cookie = "dc-player-volume=; Max-Age=-99999999; path=/;";
+        document.cookie = "dc-player-volume=; Max-Age=-99999999;";
+      }
+    </script>
+  </body>
+</html>
