@@ -2,7 +2,7 @@ let template = "";
 
 export async function getIframeTemplate(): Promise<string> {
   if (!template) {
-    const response = await fetch("/src/assets/da-cast-video-template.html");
+    const response = await fetch("/templates/da-cast-video-template.html");
     if (response.status >= 200 && response.status < 300) {
       template = await response.text();
     }
