@@ -13,7 +13,6 @@
 <script lang="ts">
 import { AREA_ASPECT_RATIO_2D } from "@/constants";
 import { getIframeTemplate, getVideoIdFromUrl } from "@/dacast-utils";
-import { defineProps, PropType } from "@vue/runtime-core";
 
 export default {
   props: {
@@ -25,6 +24,9 @@ export default {
       type: Boolean,
     },
     sound: {
+      type: Boolean,
+    },
+    clearCookies: {
       type: Boolean,
     },
   },
@@ -41,7 +43,8 @@ export default {
       return this.template
         .replaceAll("{CONTENT_ID}", getVideoIdFromUrl(this.videoUrl))
         .replace("{IS_MUTED}", this.sound ? "false" : "true")
-        .replace("{IS_LOOP}", this.loop ? "true" : "false");
+        .replace("{IS_LOOP}", this.loop ? "true" : "false")
+        .replace("{IS_CLEAR_COOKIES}", this.clearCookies ? "true" : "false");
     },
     iframeRef(): HTMLIFrameElement | undefined {
       return this.$refs.vimeoStream as HTMLIFrameElement;
